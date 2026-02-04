@@ -9,7 +9,6 @@ export default defineConfig({
     reporters: ['default'],
     coverage: {
       enabled: true,
-      // you can include other reporters, but 'json-summary' is required, json is recommended
       reporter: ['json-summary', 'json', 'html'],
       include: ['src/**/*'],
       reportOnFailure: true,

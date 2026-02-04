@@ -8,7 +8,7 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    project: ['./tsconfig.json'],
+    project: ['./tsconfig.json', './backend/tsconfig.json', './frontend/tsconfig.json'],
     ecmaFeatures: {
       jsx: false,
     },
@@ -17,7 +17,7 @@ module.exports = {
     'import/extensions': ['.ts', '.mts', '.cts', '.js', '.mjs', '.cjs', '.json'],
     'import/resolver': {
       typescript: {
-        project: './tsconfig.json',
+        project: ['./tsconfig.json', './backend/tsconfig.json', './frontend/tsconfig.json'],
       },
       node: {
         extensions: ['.ts', '.mts', '.cts', '.js', '.mjs', '.cjs'],
@@ -53,9 +53,10 @@ module.exports = {
           './*.ts',
           './*.cts',
           './*.mts',
-          './__tests__/**/*.ts',
-          './vitest.config.ts',
+          './**/__tests__/**/*.ts',
+          './**/vitest.config.ts',
         ],
+        packageDir: ['.', './backend', './frontend'],
       },
     ],
     'import/no-relative-packages': 'error',
@@ -87,7 +88,17 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['./.eslintrc.cjs', './*.js', './*.cjs', './*.mjs', './*.ts', './*.cts', './*.mts', './__tests__/**/*.ts'],
+      files: [
+        './.eslintrc.cjs',
+        './*.js',
+        './*.cjs',
+        './*.mjs',
+        './*.ts',
+        './*.cts',
+        './*.mts',
+        './**/__tests__/**/*.ts',
+        './**/vitest.config.ts',
+      ],
       rules: {
         'import/no-default-export': 'off',
       },

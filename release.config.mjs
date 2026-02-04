@@ -1,34 +1,8 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-const finalizeContext = (context) => {
-  for (const commitGroup of context.commitGroups) {
-    for (const commit of commitGroup.commits) {
-      commit.bodyLines = commit.body?.split('\n').filter((line) => line !== '') ?? [];
-    }
-  }
-
-  return context;
-};
-
 /**
  * @type {import('semantic-release').GlobalConfig}
  */
 export default {
-  branches: [
-    '+([0-9])?(.{+([0-9]),x}).x',
-    'main',
-    'next',
-    'next-major',
-    {
-      name: 'beta',
-      prerelease: true,
-    },
-    {
-      name: 'alpha',
-      prerelease: true,
-    },
-  ],
+  branches: ['main'],
   /* eslint-disable-next-line no-template-curly-in-string */
   tagFormat: 'v${version}',
   ci: true,
@@ -64,13 +38,8 @@ export default {
             { type: 'ci', section: 'Continuous Integration' },
           ],
         },
-        writerOpts: {
-          commitPartial: readFileSync(join(import.meta.dirname, 'commit.hbs'), 'utf-8'),
-          finalizeContext,
-        },
       },
     ],
-    '@semantic-release/npm',
     '@semantic-release/github',
   ],
 };

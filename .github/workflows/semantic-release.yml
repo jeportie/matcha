@@ -4,17 +4,11 @@ on:
   push:
     branches:
       - main
-      - next
-      - beta
-      - alpha
-      - '*.x'
 
 permissions:
-  packages: write # to be able to publish to GitHub Packages
-  contents: write # to be able to publish a GitHub release
-  issues: write # to be able to comment on released issues
-  pull-requests: write # to be able to comment on released pull requests
-  id-token: write # to enable use of OIDC for npm provenance
+  contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
   semantic-release:
@@ -24,25 +18,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: 'pnpm'
-          node-version-file: '.nvmrc'
-          registry-url: https://npm.pkg.github.com/
+      - name: Setup mise
+        uses: jdx/mise-action@v2
 
       - name: Install dependencies
-        run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
 
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: ${{ secrets.NPM_TOKEN && 'true' || 'false' }}
         run: npx --no semantic-release

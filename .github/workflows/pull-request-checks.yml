@@ -3,13 +3,15 @@ name: Pull Request Checks
 on:
   pull_request:
     types: [opened, synchronize]
+    branches:
+      - dev
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  packages: read
   contents: read
   pull-requests: write
 
@@ -21,44 +23,43 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: 'pnpm'
-          node-version-file: '.nvmrc'
-          registry-url: https://npm.pkg.github.com/
+      - name: Setup mise
+        uses: jdx/mise-action@v2
 
       - name: Install dependencies
-        run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
 
       - name: Lint
-        run: pnpm lint
+        run: npm run lint
 
       - name: Check for secrets
-        run: pnpm secretlint
+        run: npm run secretlint
 
       - name: Check spelling
-        run: pnpm spellcheck
+        run: npm run spellcheck
 
       - name: Typecheck
-        run: pnpm typecheck
-
-      - name: Build
-        run: pnpm build
+        run: npm run typecheck
 
       - name: Run unit tests
-        run: pnpm test
+        run: npm run test:unit
 
       - name: Run integration tests
-        run: pnpm test:integration
+        run: npm run test:integration
 
-      - name: Report Coverage
-        # Set if: always() to also generate the report if tests are failing
-        # Only works if you set `reportOnFailure: true` in your vite config as specified above
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Report Coverage (Backend)
         if: always()
         uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: backend
+          name: Backend Coverage
+
+      - name: Report Coverage (Frontend)
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          working-directory: frontend
+          name: Frontend Coverage

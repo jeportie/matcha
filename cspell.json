@@ -1,31 +1,31 @@
 {
   "version": "0.2",
   "words": [
-    "apigatewayv2",
-    "apigw",
-    "awslambda",
-    "cadienvan",
-    "cjs",
+    "autoprefixer",
     "commitlint",
+    "customterm",
     "conventionalcommits",
     "corepack",
     "davelosert",
-    "dotenv",
     "eslintcache",
-    "jwks",
-    "mawhea",
-    "mjwheatley",
-    "npmignore",
-    "npmrc",
-    "nvmrc",
-    "outdir",
-    "powertools",
+    "fastify",
+    "fnm",
+    "fullstack",
+    "jsdom",
+    "mise",
+    "monorepo",
+    "mycompany",
+    "postcss",
     "secretlintrc",
+    "tailwindcss",
+    "toml",
     "tsx",
     "typecheck",
+    "vitejs",
     "vite",
     "vitest",
-    "webdeveric"
+    "webdeveric",
+    "workspaces"
   ],
   "ignorePaths": [
     ".vscode/",
@@ -37,8 +37,8 @@
     "private",
     "package.json",
     "package-lock.json",
-    "pnpm-lock.yaml",
-    "__tests__/data"
+    "backend/__tests__/data",
+    "frontend/__tests__/data"
   ],
   "languageSettings": [
     {
