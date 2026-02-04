@@ -2,6 +2,7 @@
   "version": "0.2",
   "words": [
     "autoprefixer",
+    "Avenir",
     "commitlint",
     "customterm",
     "conventionalcommits",
@@ -11,10 +12,14 @@
     "fastify",
     "fnm",
     "fullstack",
+    "iconify",
+    "Iconify",
     "jsdom",
     "mise",
     "monorepo",
     "mycompany",
+    "njsproj",
+    "ntvs",
     "postcss",
     "secretlintrc",
     "tailwindcss",
@@ -25,7 +30,8 @@
     "vite",
     "vitest",
     "webdeveric",
-    "workspaces"
+    "workspaces",
+    "xlink"
   ],
   "ignorePaths": [
     ".vscode/",
@@ -38,7 +44,8 @@
     "package.json",
     "package-lock.json",
     "backend/__tests__/data",
-    "frontend/__tests__/data"
+    "frontend/__tests__/data",
+    "**/*.svg"
   ],
   "languageSettings": [
     {

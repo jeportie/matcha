@@ -2,7 +2,7 @@
  * @type {Record<string, string | (filenames: string[]) => string | string[] | Promise<string | string[]>}
  */
 export default {
-  '*.{js,cjs,mjs,ts,cts,mts}': ['eslint --cache --fix'],
+  '*.{js,cjs,mjs,ts,cts,mts,tsx,jsx}': ['eslint --cache --fix'],
   '*': (files) => [
     `cspell lint --no-progress --no-summary --no-must-find-files ${files.join(' ')}`,
     // Spell check file names

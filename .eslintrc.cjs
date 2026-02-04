@@ -8,23 +8,33 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    project: ['./tsconfig.json', './backend/tsconfig.json', './frontend/tsconfig.json'],
+    project: [
+      './tsconfig.json',
+      './backend/tsconfig.json',
+      './frontend/tsconfig.app.json',
+      './frontend/tsconfig.node.json',
+    ],
     ecmaFeatures: {
-      jsx: false,
+      jsx: true,
     },
   },
   settings: {
-    'import/extensions': ['.ts', '.mts', '.cts', '.js', '.mjs', '.cjs', '.json'],
+    'import/extensions': ['.ts', '.tsx', '.mts', '.cts', '.js', '.jsx', '.mjs', '.cjs', '.json'],
     'import/resolver': {
       typescript: {
-        project: ['./tsconfig.json', './backend/tsconfig.json', './frontend/tsconfig.json'],
+        project: [
+          './tsconfig.json',
+          './backend/tsconfig.json',
+          './frontend/tsconfig.app.json',
+          './frontend/tsconfig.node.json',
+        ],
       },
       node: {
-        extensions: ['.ts', '.mts', '.cts', '.js', '.mjs', '.cjs'],
+        extensions: ['.ts', '.tsx', '.mts', '.cts', '.js', '.jsx', '.mjs', '.cjs'],
       },
     },
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.mts', '.cts'],
+      '@typescript-eslint/parser': ['.ts', '.tsx', '.mts', '.cts'],
     },
   },
   rules: {
@@ -48,13 +58,16 @@ module.exports = {
         devDependencies: [
           './.eslintrc.cjs',
           './*.js',
+          './*.jsx',
           './*.cjs',
           './*.mjs',
           './*.ts',
+          './*.tsx',
           './*.cts',
           './*.mts',
-          './**/__tests__/**/*.ts',
+          './**/__tests__/**/*.{ts,tsx}',
           './**/vitest.config.ts',
+          './frontend/vite.config.ts',
         ],
         packageDir: ['.', './backend', './frontend'],
       },
@@ -91,22 +104,37 @@ module.exports = {
       files: [
         './.eslintrc.cjs',
         './*.js',
+        './*.jsx',
         './*.cjs',
         './*.mjs',
         './*.ts',
+        './*.tsx',
         './*.cts',
         './*.mts',
-        './**/__tests__/**/*.ts',
+        './**/__tests__/**/*.{ts,tsx}',
         './**/vitest.config.ts',
+        './frontend/src/**/*.{ts,tsx}',
       ],
       rules: {
         'import/no-default-export': 'off',
       },
     },
     {
-      files: ['**/*.test.ts'],
+      files: ['**/*.test.{ts,tsx}'],
       rules: {
         '@typescript-eslint/no-explicit-any': ['off'],
+      },
+    },
+    {
+      files: ['frontend/**/*.{ts,tsx,js,jsx}'],
+      env: {
+        browser: true,
+        node: false,
+      },
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'import/no-absolute-path': 'off',
+        'import/no-unresolved': ['error', { ignore: ['^/'] }],
       },
     },
   ],
